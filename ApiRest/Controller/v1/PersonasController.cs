@@ -10,7 +10,6 @@ namespace ApiRest.Controller.v1
 	[ApiController]
 	public class PersonasController : ControllerBase
 	{
-		public List<Persona> listaPersonas;
 		private readonly AplicationDbContext _context;
 
 		public PersonasController(AplicationDbContext context)
@@ -18,49 +17,65 @@ namespace ApiRest.Controller.v1
 			_context = context;
 		}
 
-		[HttpGet("{id}")]
-		public ActionResult<Persona> ObtenerPersona(int id)
+		[HttpGet]
+		public async Task<ActionResult<List<Persona>>> ObtenerListadoPersona()
 		{
-			var persona = listaPersonas.Where(x => x.DNI == id).FirstOrDefault();
+			var personas = await _context.Personas.ToListAsync();
+			if (personas.Count() <= 0)
+				return NotFound("No hay personas");
 
+			return personas;
+		}
+
+
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Persona>> ObtenerPersona(int id)
+		{
+			var persona = await _context.Personas.Where(x => x.DNI == id).FirstOrDefaultAsync();
 			if (persona == null)
 				return NotFound("No se encontró persona con el id solicitado");
 
 			return persona;
 		}
 
-		[HttpGet]
-		public async Task<List<Persona>> ObtenerListadoPersona()
-		{
-			//return listaPersonas;
-			var data = await _context.Personas.ToListAsync();
-			return data;
-		}
-
 		[HttpPost]
 		public async Task<ActionResult> Crear(Persona persona)
 		{
-			await _context.Personas.AddAsync(persona);
-			_context.SaveChanges();
+			try
+			{
+				await _context.Personas.AddAsync(persona);
+				_context.SaveChanges();
 
-			return Ok("Persona se creo correctamente");
+				return Ok("Persona se creo correctamente");
+			}
+			catch (Exception ex)
+			{
+				return BadRequest($"Ocurrio un error: {ex.Message}");
+			}
 		}
 
 		[HttpPut("{id}")]
 		public async Task<ActionResult> Modificar(int id, Persona persona)
 		{
-			var personaDb = await _context.Personas
+			try
+			{
+				var personaDb = await _context.Personas
 				.Where(x => x.DNI == id).FirstOrDefaultAsync();
 
-			if (personaDb == null)
-				return NotFound("persona no existe");			
+				if (personaDb == null)
+					return NotFound("persona no existe");
 
-			personaDb.Parterno = persona.Parterno;
-			personaDb.Materno = persona.Materno;
-			personaDb.Nombres = persona.Nombres;
-			_context.SaveChanges();
+				personaDb.Paterno = persona.Paterno;
+				personaDb.Materno = persona.Materno;
+				personaDb.Nombres = persona.Nombres;
+				_context.SaveChanges();
 
-			return Ok("Persona se modifico correctamente");
+				return Ok("Persona se modifico correctamente");
+			}
+			catch (Exception ex)
+			{
+				return BadRequest($"Ocurrio un error: {ex.Message}");
+			}
 		}
 
 

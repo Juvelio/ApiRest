@@ -11,5 +11,9 @@ namespace ApiRest.Data
         }
 
         public DbSet<Persona> Personas { get; set; }
-    }
+		public DbSet<Medico> Medicos { get; set; }
+		public DbSet<Especialidad> Especialidad { get; set; }
+
+		public DbSet<Cita> Citas { get; set; }
+	}
 }

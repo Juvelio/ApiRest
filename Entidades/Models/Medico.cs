@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Entidades.Models
 {
-	public class Persona
+	public class Medico
 	{
 		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public int DNI { get; set; }
-		public string Nombres { get; set; }
-		public string Paterno { get; set; }
+		public int Id { get; set; }
+		public string Nombre { get; set; }
+        public string Paterno { get; set; }
 		public string Materno { get; set; }
 
 
-        public string Usuario { get; set; }
-		public string Password { get; set; }
+		[ForeignKey("Especialidad")]
+		public int EspecialidadId { get; set; }
+		public Especialidad Especialidad { get; set; }
 	}
 }
