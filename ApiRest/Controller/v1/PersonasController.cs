@@ -46,9 +46,10 @@ namespace ApiRest.Controller.v1
 				await _context.Personas.AddAsync(persona);
 				_context.SaveChanges();
 
-				return Ok("Persona se creo correctamente");
-			}
-			catch (Exception ex)
+                //return Ok("Persona se creo correctamente");
+                return CreatedAtAction("ObtenerPersona", new { id = persona.DNI }, persona);
+            }
+            catch (Exception ex)
 			{
 				return BadRequest($"Ocurrio un error: {ex.Message}");
 			}
