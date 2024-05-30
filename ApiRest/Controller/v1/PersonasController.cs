@@ -1,5 +1,8 @@
 ﻿using ApiRest.Data;
+using AutoMapper;
+using Entidades.DTOs;
 using Entidades.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -11,20 +14,24 @@ namespace ApiRest.Controller.v1
 	public class PersonasController : ControllerBase
 	{
 		private readonly AplicationDbContext _context;
+		private readonly IMapper _mapper;
 
-		public PersonasController(AplicationDbContext context)
+		public PersonasController(AplicationDbContext context, IMapper mapper)
 		{
 			_context = context;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<List<Persona>>> ObtenerListadoPersona()
+		[Authorize(Roles = "admin, user")]
+		public async Task<ActionResult<List<PersonaDTO>>> ObtenerListadoPersona()
 		{
 			var personas = await _context.Personas.ToListAsync();
 			if (personas.Count() <= 0)
 				return NotFound("No hay personas");
 
-			return personas;
+			var personaDTOs = _mapper.Map<List<PersonaDTO>>(personas);
+			return personaDTOs;
 		}
 
 
@@ -46,10 +53,10 @@ namespace ApiRest.Controller.v1
 				await _context.Personas.AddAsync(persona);
 				_context.SaveChanges();
 
-                //return Ok("Persona se creo correctamente");
-                return CreatedAtAction("ObtenerPersona", new { id = persona.DNI }, persona);
-            }
-            catch (Exception ex)
+				//return Ok("Persona se creo correctamente");
+				return CreatedAtAction("ObtenerPersona", new { id = persona.DNI }, persona);
+			}
+			catch (Exception ex)
 			{
 				return BadRequest($"Ocurrio un error: {ex.Message}");
 			}

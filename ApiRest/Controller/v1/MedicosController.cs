@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiRest.Data;
 using Entidades.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest.Controller.v1
 {
@@ -23,7 +24,8 @@ namespace ApiRest.Controller.v1
 
         // GET: api/Medicos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Medico>>> GetMedicos()
+		[Authorize]
+		public async Task<ActionResult<IEnumerable<Medico>>> GetMedicos()
         {
             return await _context.Medicos.ToListAsync();
         }
