@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest.Controller.v1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class MedicosController : ControllerBase
+	[Authorize]
+	public class MedicosController : ControllerBase
     {
         private readonly AplicationDbContext _context;
 

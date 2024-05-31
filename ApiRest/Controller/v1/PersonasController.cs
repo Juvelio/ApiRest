@@ -9,8 +9,9 @@ using System.Net;
 
 namespace ApiRest.Controller.v1
 {
-	[Route("api/[controller]")]
+	[Route("api/v1/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PersonasController : ControllerBase
 	{
 		private readonly AplicationDbContext _context;

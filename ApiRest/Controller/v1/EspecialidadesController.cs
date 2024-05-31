@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiRest.Data;
 using Entidades.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest.Controller.v1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class EspecialidadesController : ControllerBase
+	[Authorize]
+	public class EspecialidadesController : ControllerBase
     {
         private readonly AplicationDbContext _context;
 

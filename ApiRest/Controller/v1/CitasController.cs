@@ -9,11 +9,13 @@ using ApiRest.Data;
 using Entidades.Models;
 using Entidades.DTOs;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRest.Controller.v1
 {
-	[Route("api/[controller]")]
+	[Route("api/v1/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class CitasController : ControllerBase
 	{
 		private readonly AplicationDbContext _context;
@@ -29,7 +31,10 @@ namespace ApiRest.Controller.v1
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<Cita>>> GetCitas()
 		{
-			return await _context.Citas.ToListAsync();
+			return await _context.Citas
+				.Include(c => c.Medico).ThenInclude(m => m.Especialidad)
+				.Include(c => c.Persona)
+				.ToListAsync();
 		}
 
 		// GET: api/Citas/5
@@ -90,7 +95,7 @@ namespace ApiRest.Controller.v1
 			//	PersonaId = dTO.PersonaId
 			//};
 			#endregion
-			
+
 			//MAPEO AUTOMATICO CON AUTOMAPPER
 			var cita = _mapper.Map<Cita>(dTO);
 			_context.Citas.Add(cita);
