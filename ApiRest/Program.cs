@@ -1,6 +1,7 @@
 using ApiRest.Data;
 using ApiRest.Repositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -104,7 +105,10 @@ app.UseSwaggerUI(c =>
 	c.SwaggerEndpoint("/swagger/v3/swagger.json", "CursoApi v3");
 });
 
-
+app.UseCors(builder =>
+	   builder.AllowAnyOrigin()
+			  .AllowAnyMethod()
+			  .AllowAnyHeader());
 
 //CONFIGURAR LA CANALIZACION DES SOLICITUDES HTTP.
 app.MapControllers();

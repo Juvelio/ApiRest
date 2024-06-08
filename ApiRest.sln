@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiRest", "ApiRest\ApiRest.csproj", "{9EE9C882-CDF9-488D-A32B-5330980C1133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiRest", "ApiRest\ApiRest.csproj", "{9EE9C882-CDF9-488D-A32B-5330980C1133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{3650577D-D488-42B1-BF1C-8CA3DD9C0439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entidades", "Entidades\Entidades.csproj", "{3650577D-D488-42B1-BF1C-8CA3DD9C0439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteBlazor", "ClienteBlazor\ClienteBlazor.csproj", "{11DFA3A0-8A05-4B85-82EC-9E74C91590CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3650577D-D488-42B1-BF1C-8CA3DD9C0439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3650577D-D488-42B1-BF1C-8CA3DD9C0439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3650577D-D488-42B1-BF1C-8CA3DD9C0439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11DFA3A0-8A05-4B85-82EC-9E74C91590CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11DFA3A0-8A05-4B85-82EC-9E74C91590CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11DFA3A0-8A05-4B85-82EC-9E74C91590CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11DFA3A0-8A05-4B85-82EC-9E74C91590CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
